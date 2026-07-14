@@ -74,8 +74,9 @@ def classify_sentences(sentences: list[str]) -> list[EmotionResult]:
     """Run each sentence through the emotion classifier.
 
     Returns EmotionResult dicts: emotion/family/confidence are the top
-    label, "emotions" is the top 3 labels with scores (kept around for
-    later use, e.g. blending or a richer UI)."""
+    label, "emotions" is the top 3 labels with scores -- pipeline.py's
+    _blend_profile() uses this to blend pause/volume across all 3 instead
+    of committing fully to just the top label."""
     classifier = _get_classifier()
     results = []
     for sentence in sentences:

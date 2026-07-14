@@ -54,6 +54,29 @@ def _get_profile(family: str) -> EmotionProfile:
     return EMOTION_PROFILE.get(family, DEFAULT_PROFILE)
 
 
+def _blend_profile(item: EmotionResult) -> EmotionProfile:
+    """Blend pause/volume across the top-N detected emotions (item["emotions"]),
+    weighted by their scores, instead of committing fully to just the single
+    top label's family. GoEmotions is multi-label (see emotion.py), so a
+    sentence scoring e.g. curiosity 0.75 + sadness 0.43 is genuinely a mix --
+    this gives it an in-between pause/volume rather than a hard jump to one
+    category. Uses the *unsmoothed* per-sentence scores (item["emotions"]
+    isn't touched by smooth_emotions), while "family" (smoothed) still picks
+    which TTS voice settings to use -- see _build_audio."""
+    weighted = item.get("emotions") or [(item["emotion"], item["confidence"])]
+    total = sum(score for _, score in weighted) or 1.0
+
+    pause = 0.0
+    volume = 0.0
+    for label, score in weighted:
+        profile = _get_profile(emotion.to_family(label))
+        weight = score / total
+        pause += profile["pause"] * weight
+        volume += profile["volume"] * weight
+
+    return {"pause": pause, "volume": volume}
+
+
 # ----------------------------------------------------------------------
 # Helpers
 # ----------------------------------------------------------------------
@@ -126,7 +149,7 @@ def _build_audio(tagged_sentences: list[EmotionResult]) -> AudioSegment:
 
     for item in tagged_sentences:
         family = item["family"]
-        profile = _get_profile(family)
+        profile = _blend_profile(item)
 
         wav = tts.synthesize(item["text"], family)
         segment = AudioSegment.from_wav(BytesIO(wav))
