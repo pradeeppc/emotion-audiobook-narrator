@@ -1,10 +1,3 @@
-"""Gradio UI for Hugging Face Spaces (free tier here doesn't support Docker,
-so this is an alternative to backend/main.py's FastAPI+HTML version, which
-is still used for local dev / Docker deployments elsewhere). Reuses
-backend/pipeline.py and backend/emotion.py unchanged -- only the UI layer
-differs.
-"""
-
 import sys
 import tempfile
 from pathlib import Path
@@ -20,18 +13,13 @@ import pipeline
 
 @spaces.GPU
 def _zerogpu_placeholder():
-    """No-op. This Space's only available free hardware tier is ZeroGPU,
-    which requires at least one @spaces.GPU-decorated function to exist or
-    it refuses to start -- CPU Basic (what we'd actually use) requires a
-    PRO subscription to switch to on this account. Our app never touches a
-    GPU (Piper/onnxruntime run CPU-only); this function exists solely to
-    satisfy that platform requirement and is never called."""
+    """No-op, required so this ZeroGPU-tier Space starts (needs at least
+    one @spaces.GPU function). App is CPU-only; never actually called."""
 
 _MODELS_DIR = Path(__file__).parent / "backend" / "models"
 _MODEL_FILE = _MODELS_DIR / "en_US-lessac-medium.onnx"
 
-# backend/models/ isn't committed to git (see .gitignore) -- fetch the Piper
-# voice on first run instead, same as a fresh local checkout would need to.
+# Not committed to git -- fetch on first run instead.
 if not _MODEL_FILE.exists():
     from piper.download_voices import download_voice
 
