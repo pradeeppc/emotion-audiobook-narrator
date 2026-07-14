@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Emotion Audiobook Narrator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Emotion-Aware Audiobook Narrator</h1>
+    <p>Paste some text below. Sentences will be read aloud with pacing that
+       reflects each sentence's detected emotion.</p>
+
+    <textarea id="text-input" rows="10"
+      placeholder="Paste a paragraph or short story here..."></textarea>
+
+    <div class="buttons">
+      <button id="analyze-btn">Preview detected emotions</button>
+      <button id="narrate-btn">Generate narration</button>
+    </div>
+
+    <div id="status"></div>
+
+    <table id="emotion-table" hidden>
+      <thead><tr><th>Sentence</th><th>Emotion</th><th>Confidence</th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <audio id="player" controls hidden></audio>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

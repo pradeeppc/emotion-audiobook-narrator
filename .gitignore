@@ -1,0 +1,7 @@
+venv/
+backend/models/
+__pycache__/
+*.pyc
+samples/output.wav
+docs/
+experiments/

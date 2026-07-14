@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+python-multipart
+transformers
+torch
+nltk
+pydub
+piper-tts

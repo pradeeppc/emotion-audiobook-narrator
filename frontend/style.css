@@ -1,0 +1,53 @@
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+  color: #222;
+}
+
+textarea {
+  width: 100%;
+  font-size: 1rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.buttons {
+  margin: 12px 0;
+}
+
+button {
+  padding: 8px 16px;
+  margin-right: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+#status {
+  margin: 10px 0;
+  color: #555;
+  min-height: 1.2em;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+th, td {
+  text-align: left;
+  padding: 6px 8px;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem;
+}
+
+audio {
+  width: 100%;
+}
+
+.family {
+  color: #888;
+  font-size: 0.85em;
+}

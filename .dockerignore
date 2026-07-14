@@ -1,0 +1,8 @@
+backend/venv/
+backend/models/
+backend/__pycache__/
+**/__pycache__/
+*.pyc
+samples/
+experiments/
+.git/
