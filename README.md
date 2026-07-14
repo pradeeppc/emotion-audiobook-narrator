@@ -17,6 +17,33 @@ TTS pipeline (`backend/tts.py`/`backend/pipeline.py`) turns that into
 narration with emotion-appropriate pacing and volume, staying on one
 consistent CPU-only voice throughout.
 
+## The pipeline, end to end
+
+```
+ Raw text
+    |
+    v
+[1] Text segmentation        -> break into sentences/paragraphs
+    |
+    v
+[2] Emotion classification   -> tag each segment: sad / happy / angry / tense / neutral...
+    |
+    v
+[3] Context smoothing        -> avoid emotion flip-flopping sentence to sentence
+    |
+    v
+[4] Emotion -> voice mapping -> convert emotion tag into TTS control params
+    |
+    v
+[5] TTS synthesis            -> generate audio per segment
+    |
+    v
+[6] Audio stitching          -> join segments with natural pacing/pauses
+    |
+    v
+ Final audio file (.wav/.mp3)
+```
+
 ## Project structure
 
 ```
