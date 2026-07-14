@@ -3,8 +3,8 @@ title: Emotion Audiobook Narrator
 emoji: 🎙️
 colorFrom: blue
 colorTo: purple
-sdk: docker
-app_port: 7860
+sdk: gradio
+app_file: app.py
 pinned: false
 ---
 
@@ -45,8 +45,7 @@ uvicorn main:app --reload
 ```
 
 This starts the API at `http://127.0.0.1:8000`, which also serves the
-frontend directly. Visit `http://127.0.0.1:8000/docs` to try the API
-endpoints interactively.
+frontend directly.
 
 The **first** request will be slow (~30-60s) — it downloads the emotion
 classification model (~500MB) the first time. After that it's cached and
