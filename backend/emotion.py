@@ -53,6 +53,10 @@ def _get_classifier():
             "text-classification",
             model=_MODEL_NAME,
             top_k=None,  # return scores for every emotion label, not just the top one
+            device="cpu",  # force CPU explicitly -- on HF's ZeroGPU hardware,
+            # torch.cuda.is_available() reports True even outside a
+            # @spaces.GPU-decorated function, so auto-detection would try
+            # (and fail) to move the model to CUDA here.
         )
     return _classifier
 
