@@ -12,9 +12,20 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "backend"))
 
 import gradio as gr
+import spaces
 
 import emotion
 import pipeline
+
+
+@spaces.GPU
+def _zerogpu_placeholder():
+    """No-op. This Space's only available free hardware tier is ZeroGPU,
+    which requires at least one @spaces.GPU-decorated function to exist or
+    it refuses to start -- CPU Basic (what we'd actually use) requires a
+    PRO subscription to switch to on this account. Our app never touches a
+    GPU (Piper/onnxruntime run CPU-only); this function exists solely to
+    satisfy that platform requirement and is never called."""
 
 _MODELS_DIR = Path(__file__).parent / "backend" / "models"
 _MODEL_FILE = _MODELS_DIR / "en_US-lessac-medium.onnx"
